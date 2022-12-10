@@ -1,0 +1,36 @@
+/* Reset/Normalize by Maxi Kaye 2022 */
+html {
+    box-sizing: border-box;
+}
+
+::before,
+::after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    font-size: 100%;
+    line-height: 1.15;
+}
+
+ol, ul {
+    margin: 0;
+}
+
+h1, h2, p {
+    margin: 0;
+    line-height: 1.4;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+}
