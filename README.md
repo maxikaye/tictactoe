@@ -1,2 +1,2 @@
 # tictactoe
-The classic game made for the web.
+The classic game of naughts and crosses made for the web.
