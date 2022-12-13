@@ -1,12 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap')
-
-:root {
-
-}
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
 
 body {
     font-family: 'Comfortaa', cursive;
     font-size: 16px;
+    height: 100vh;
 }
 
 h1 {
@@ -17,7 +14,8 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
+    min-height: 100%;
 }
 
 header {
@@ -42,8 +40,9 @@ header {
     display: grid;
     justify-items: center;
     align-items: center;
+    user-select: none;
 }
 
 footer {
-
+    margin-top: auto;
 }
