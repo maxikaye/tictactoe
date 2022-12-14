@@ -1,12 +1,24 @@
 // TicTacToe by Maxi Kaye 2022
+
+const createPlayer = (name, mark, AI=false ) => {
+    const score = 0;
+    return { name, mark, AI, score};
+};
+
+
 const gameCtrl = (() => {
     // DOM Cache
     const gameArea = document.querySelector('.game-area');
 
     // game state
     let round = 0;
-
-    return { gameArea, round }
+    const init = () => {
+        const playerOne = createPlayer('max', 'x');
+        const playerTwo = createPlayer('marta', 'o');
+        gameBoard.render();
+        return { playerOne, playerTwo };
+    }
+    return { gameArea, round, init }
 })();
 
 
@@ -18,21 +30,37 @@ const gameBoard = (() => {
     gameCtrl.gameArea.appendChild(boardDom);
 
     const setPlayerMark = (e) => {
-        gameCtrl.round += 1;
         const space = Number(e.target.id);
-        _board[space] = 'x';
-        e.target.innerHTML = 'X';
+        if (_board[space] === '') {
+            gameCtrl.round += 1;
+            if (gameCtrl.round % 2 !== 0) {
+                _board[space] = 'x';
+                e.target.innerHTML = 'x';
+            } else {
+                _board[space] = 'o';
+                e.target.innerHTML = 'o';
+            }
+            if (gameCtrl.round >= 3) { 
+                console.log(checkWin());
+            }
+        }
     }
 
     const render = () => {
         for (let i = 0; i < _board.length; i++) {
-                let boardSpace = document.createElement('div');
+                const boardSpace = document.createElement('div');
                 boardSpace.classList.add('board-space');
                 boardSpace.id = i;
                 boardDom.appendChild(boardSpace);
                 boardSpace.addEventListener('click', setPlayerMark);
         }
     };
+
+    const reset = () => {
+        const _spaces = document.querySelectorAll('.board-space');
+        _spaces.forEach(space => space.innerHTML = '');
+        _board.forEach(el => el = '');
+    }
 
     const checkWin = () => {
         if (_board[0] && _board[1] === _board[2]) {
@@ -55,37 +83,9 @@ const gameBoard = (() => {
             return "draw";
         }
     };
-    return { render, checkWin };
+    return { render, reset, checkWin };
 })();
 
 
-// const Events = (() => {
-//     let _events = {};
-    
-//     const listen = (event, callback) => {
-
-//     };
-
-//     const cancel = (event) => {
-
-//     };
-
-//     const emit = (event, ...data) => {
-
-//     };
-
-//     return { listen, cancel, emit };
-// })();
-
-
-const Player = () => {
-    // human or AI
-    // symbol
-    // score
-    // name
-    return {};
-}
-
 // Initialize Game ==================================
-// player select screen > game start
-gameBoard.render();
+gameCtrl.init();
