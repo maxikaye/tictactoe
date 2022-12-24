@@ -12,18 +12,29 @@ const gameCtrl = (() => {
 
     // game state
     let round = 0;
-    const init = () => {
-        const playerOne = createPlayer('max', 'x');
-        const playerTwo = createPlayer('marta', 'o');
+    let currentPlayer;
+    const setup = () => {
+        // menu
+        // game
         gameBoard.render();
-        return { playerOne, playerTwo };
     }
-    return { gameArea, round, init }
+
+    const update = () => {
+        // call each move
+        // update board array
+        // check for win
+    }
+
+    const render = () => {
+        // called from update
+    }
+
+    return { gameArea, setup, update }
 })();
 
 
 const gameBoard = (() => {
-    let _board = ['', '', '', '', '', '', '', '', ''];
+    let _board = [{}, {}, {}, {}, {}, {}, {}, {}, {}];
     // DOM Cache
     const boardDom = document.createElement('div');
     boardDom.classList.add('game-board')
@@ -31,13 +42,13 @@ const gameBoard = (() => {
 
     const setPlayerMark = (e) => {
         const space = Number(e.target.id);
-        if (_board[space] === '') {
+        if (!Object.hasOwn(_board[space], 'player')) {
             gameCtrl.round += 1;
             if (gameCtrl.round % 2 !== 0) {
-                _board[space] = 'x';
+                _board[space]['player'] = 'x';
                 e.target.innerHTML = 'x';
             } else {
-                _board[space] = 'o';
+                _board[space]['player'] = 'o';
                 e.target.innerHTML = 'o';
             }
             if (gameCtrl.round >= 3) { 
@@ -48,44 +59,47 @@ const gameBoard = (() => {
 
     const render = () => {
         for (let i = 0; i < _board.length; i++) {
-                const boardSpace = document.createElement('div');
-                boardSpace.classList.add('board-space');
-                boardSpace.id = i;
-                boardDom.appendChild(boardSpace);
-                boardSpace.addEventListener('click', setPlayerMark);
+            const boardSpace = document.createElement('div');
+            boardSpace.classList.add('board-space');
+            boardSpace.id = i;
+            boardDom.appendChild(boardSpace);
+            boardSpace.addEventListener('click', setPlayerMark);
         }
     };
 
     const reset = () => {
         const _spaces = document.querySelectorAll('.board-space');
         _spaces.forEach(space => space.innerHTML = '');
-        _board.forEach(el => el = '');
+        _board.forEach(el => el = {});
     }
 
     const checkWin = () => {
-        if (_board[0] && _board[1] === _board[2]) {
-            return _board[0]; // first row
-        } else if (_board[3] && _board[4] === _board[5]) {
-            return _board[3]; // second row
-        } else if (_board[6] && _board[7] === _board[8]) {
-            return _board[6]; // third row
-        } else if (_board[0] && _board[3] === _board[6]) {
-            return _board[0]; // first col
-        } else if (_board[1] && _board[4] === _board[7]) {
-            return _board[1]; // second col
-        } else if (_board[2] && _board[5] === _board[8]) {
-            return _board[2]; // third col
-        } else if (_board[0] && _board[4] === _board[8]) {
-            return _board[0]; // top left to bottom right diagonal
-        } else if (_board[2] && _board[4] === _board[6]) {
-            return _board[2]; // top right to bottom left diagonal
-        } else {
-            return "draw";
+        const winStates = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ];
+
+        for (let state of winStates) {
+            if (state.every(space => {
+                // refactor to use player obj
+                return Object.hasOwn(_board[space], 'player') && _board[space]['player'] === 'x';
+            })) {
+                return `player wins`;
+            }
         }
     };
+
     return { render, reset, checkWin };
 })();
 
-
+// if player obj do not exist 
 // Initialize Game ==================================
-gameCtrl.init();
+gameCtrl.setup();
+// else
+// Play Game ========================================
