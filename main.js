@@ -1,16 +1,25 @@
-// TicTacToe by Maxi Kaye 2022
+// TicTacToe by Maxi Kaye 2022 @maxikaye
 
 const createPlayer = (name, mark, AI=false ) => {
     const score = 0;
     return { name, mark, AI, score};
 };
 
+function createEnum(values) {
+    const enumObj = {};
+    for (const val of values) {
+        enumObj[val] = val;
+    }
+    return Object.freeze(enumObj);
+}
 
 const gameCtrl = (() => {
     // DOM Cache
     const gameArea = document.querySelector('.game-area');
 
     // game state
+    const gameStates = createEnum(['Start', 'Play', 'GameOver']);
+    let currentState = gameStates.Play;
     let round = 0;
     let currentPlayer;
     const setup = () => {
@@ -23,6 +32,7 @@ const gameCtrl = (() => {
         // call each move
         // update board array
         // check for win
+        // if play new game gameBoard.reset()
     }
 
     const render = () => {
