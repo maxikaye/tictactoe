@@ -20,7 +20,7 @@ const gameCtrl = (() => {
     
     // game state
     const gameStates = createEnum(['Menu', 'Start', 'Play', 'GameOver']);
-    let currentState = gameStates.Start;
+    let currentState = gameStates.Menu;
     let round = 0;
     let currentPlayer;
 
