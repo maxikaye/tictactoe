@@ -1,7 +1,10 @@
 // TicTacToe by Maxi Kaye 2022 @maxikaye
 
-const createPlayer = (name, mark, AI=false ) => {
+const createPlayer = (name, player, AI=false ) => {
     const score = 0;
+    let mark = null;
+    if (player === 'one') mark = 'x';
+    else if (player === 'two') mark = 'o';
     return { name, mark, AI, score};
 };
 
@@ -18,15 +21,27 @@ const gameCtrl = (() => {
     const gameArea = document.querySelector('.game-area');
     const startMenu = document.querySelector('.start-menu');
     const startBtn = document.getElementById('btn-start-game');
+    // menu input
+    const inputPlayerOneName = document.getElementById('player-one-name');
+    const inputPlayerOneHuman = document.getElementById('player-one-human');
+    const inputPlayerOneAI = document.getElementById('player-one-ai');
+
     
     // game state
     const gameStates = createEnum(['Menu', 'Start', 'Play', 'GameOver']);
     let currentState = gameStates.Menu;
     let round = 0;
+    let players = [];
     let currentPlayer;
 
     function startGame(e) {
         e.preventDefault();
+        console.log(inputPlayerOneHuman.value, inputPlayerOneName.value)
+        // const playerOne = createPlayer(
+        //     inputPlayerOneName.value,
+        //     'one',
+        //     inputPlayerOneHuman
+        // );
     }
     
     const setup = () => {
