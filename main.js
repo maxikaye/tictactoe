@@ -16,16 +16,26 @@ function createEnum(values) {
 const gameCtrl = (() => {
     // DOM Cache
     const gameArea = document.querySelector('.game-area');
-
+    const startMenu = document.querySelector('.start-menu');
+    
     // game state
-    const gameStates = createEnum(['Start', 'Play', 'GameOver']);
-    let currentState = gameStates.Play;
+    const gameStates = createEnum(['Menu', 'Start', 'Play', 'GameOver']);
+    let currentState = gameStates.Start;
     let round = 0;
     let currentPlayer;
+
     const setup = () => {
         // menu
+        if (currentState === gameStates.Menu) {
+            startMenu.setAttribute('style', 'display: flex');
+        }
         // game
-        gameBoard.render();
+        if (currentState === gameStates.Start) {
+            startMenu.setAttribute('style', 'display: none');
+            gameBoard.render();
+            currentState = gameStates.Play;
+        }
+        
     }
 
     const update = () => {

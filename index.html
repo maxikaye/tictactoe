@@ -14,7 +14,25 @@
         </header>
         <section class="game-area">
             <div class="start-menu">
-                
+                <form action="" method="post">
+                    <div class="player" id="player-one">
+                        <p class="player-name">Player One Name</p>
+                        <input type="text" name="player-one-name" id="player-one-name">
+                        <input type="checkbox" name="player-type" id="player-one-human">
+                        <label for="player-one-human">Human</label>
+                        <input type="checkbox" name="player-type" id="player-one-ai">
+                        <label for="player-one-ai">AI</label>
+                    </div>
+                    <div class="player" id="player-two">
+                        <p class="player-name">Player Two Name</p>
+                        <input type="text" name="player-two-name" id="player-two-name">
+                        <input type="checkbox" name="player-type" id="player-two-human">
+                        <label for="player-two-human">Human</label>
+                        <input type="checkbox" name="player-type" id="player-two-ai">
+                        <label for="player-two-ai">AI</label>
+                    </div>
+                    <button type="submit">START</button>
+                </form>
             </div>
         </section>
         <footer>
