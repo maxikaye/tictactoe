@@ -17,6 +17,7 @@ const gameCtrl = (() => {
     // DOM Cache
     const gameArea = document.querySelector('.game-area');
     const startMenu = document.querySelector('.start-menu');
+    const startBtn = document.getElementById('btn-start-game');
     
     // game state
     const gameStates = createEnum(['Menu', 'Start', 'Play', 'GameOver']);
@@ -24,10 +25,15 @@ const gameCtrl = (() => {
     let round = 0;
     let currentPlayer;
 
+    function startGame(e) {
+        e.preventDefault();
+    }
+    
     const setup = () => {
         // menu
         if (currentState === gameStates.Menu) {
             startMenu.setAttribute('style', 'display: flex');
+            startBtn.addEventListener('click', startGame);
         }
         // game
         if (currentState === gameStates.Start) {
